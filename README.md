@@ -26,7 +26,7 @@ You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
 
 ## Install
 
-`yarn add baby-i-am-faded @emotion/core`
+`yarn add baby-i-am-faded @emotion/core react-emotion-animations`
 
 ## Usage
 
@@ -46,7 +46,7 @@ export const App = () => (
 ## With other animation
 
 ```tsx
-import { wobble } from 'baby-i-am-faded/esm/animations' // here are all the animate.css animaitons
+import { wobble } from 'react-emotion-animations' // here are all the animate.css animaitons
 
 export const WithWobble = () => (
     <Faded animation={wobble}>

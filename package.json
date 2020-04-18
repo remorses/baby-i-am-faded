@@ -2,6 +2,7 @@
     "private": true,
     "workspaces": [
         "website",
+        "react-emotion-animations",
         "baby-i-am-faded"
     ],
     "scripts": {}

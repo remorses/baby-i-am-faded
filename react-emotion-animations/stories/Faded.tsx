@@ -57,7 +57,7 @@ export const Damped = () => (
 
 export const usingAs = () => (
     // @ts-ignore
-    <Stack as={Faded} damping={.9} cascade>
+    <Stack as={Faded} damping={0.9} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -77,10 +77,25 @@ export const WithWobble = () => (
 
 export const WithBounce = () => (
     // @ts-ignore
-    <Faded animation={bounceInRight} as={Faded}  cascade>
+    <Faded animation={bounceInRight} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
         <Placeholder />
     </Faded>
+)
+
+export const OutOfView = () => (
+    <Stack spacing='40px'>
+        {new Array(100).fill(0).map((_, i) => (
+            <Box borderWidth='1px'>
+                <Faded cascade triggerOnce>
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                </Faded>
+            </Box>
+        ))}
+    </Stack>
 )
