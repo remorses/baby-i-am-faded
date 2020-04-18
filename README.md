@@ -2,15 +2,14 @@
     <br/>
     <br/>
     <h1><pre>baby-i-am-faded</pre></h1>
-    <p style='width: 400px;'>
-    Animates react components when in view, uses `emotion` for the animations code, completely tree shakable, super tiny
-    </p>
     <br/>
     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/48/Faded_Zhu.jpg/220px-Faded_Zhu.jpg" />
     <br/>
     <br/>
     <br/>
 </div>
+
+Animates react components when in view, uses `emotion` for the animations code, completely tree shakable, super tiny
 
 ## Features
 
