@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "workspaces": [
+        "website",
+        "baby-i-am-faded"
+    ],
+    "scripts": {}
+}
