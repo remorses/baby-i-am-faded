@@ -64,6 +64,27 @@ export const Faded = forwardRef(
                     nodes,
                 )
             }
+            if (typeof nodes === 'string') {
+                const words = nodes.split(' ')
+                return words.map((word, index) => {
+                    return (
+                        <span
+                            style={{
+                                display: 'inline-block',
+                                whiteSpace: 'pre',
+                            }}
+                            css={getAnimationCss({
+                                keyframes: animation,
+                                delay: cascade ? index * duration * damping : 0,
+                                duration,
+                            })}
+                            key={index}
+                        >
+                            {index !== words.length - 1 ? word + ' ' : word}
+                        </span>
+                    )
+                })
+            }
 
             return React.Children.map(nodes, (node, index) => {
                 const childElement = node as React.ReactElement

@@ -5,6 +5,7 @@ import {
     Box,
     ColorModeProvider,
     Stack,
+    Heading,
 } from '@chakra-ui/core'
 import { Faded } from '../src'
 import { wobble, bounceInRight } from 'react-emotion-animations'
@@ -15,7 +16,7 @@ export default {
     decorators: [
         (storyFn) => (
             <ThemeProvider>
-                <Box maxW='600px' p='30px' border='1px solid red'>
+                <Box maxW='800px' p='30px' border='1px solid red'>
                     <CSSReset />
                     {storyFn()}
                 </Box>
@@ -35,6 +36,11 @@ export const List = () => (
         <Placeholder />
         <Placeholder />
     </Faded>
+)
+export const Text = () => (
+    <Heading>
+        <Faded cascade>Incididunt ullamco id id pariatur velit et.</Faded>
+    </Heading>
 )
 
 export const Faster = () => (
