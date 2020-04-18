@@ -43,10 +43,10 @@ export const App = () => (
 )
 ```
 
-## With other animation
+## With other animations
 
 ```tsx
-import { wobble } from 'react-emotion-animations' // here are all the animate.css animaitons
+import { wobble } from 'react-emotion-animations' // here are all the animate.css animations
 
 export const WithWobble = () => (
     <Faded animation={wobble}>
