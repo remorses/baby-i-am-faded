@@ -1,0 +1,32 @@
+name: react-emotion-animations Npm Package
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - react-emotion-animations/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: cd react-emotion-animations && yarn
+      # - run: yarn test
+      - run: cd react-emotion-animations && yarn compile
+      - name: Bump version
+        uses: remorses/bump-version@js
+        with:
+          version_file: react-emotion-animations/VERSION
+          prefix: react-emotion-animations
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: cd react-emotion-animations && yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}

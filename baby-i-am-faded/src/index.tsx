@@ -7,11 +7,29 @@ import { isFragment } from 'react-is'
 import { useCombinedRefs, cloneElement, fadeInUp } from './support'
 
 export type FadedProps = {
+    /**
+     * Stagger its children animations
+     */
     cascade?: boolean
+    /**
+     * Makes The stagger animation slower
+     */
     damping?: number
+    /**
+     * duration in milliseconds
+     */
     duration?: number
+    /**
+     * Custom emotion animation
+     */
     animation?: Keyframes
+    /**
+     * The ratio with the element is triggered when in view, from 0 to 1
+     */
     threshold?: number
+    /**
+     * Trigger only the first time the element come in view
+     */
     triggerOnce?: boolean
     children?: any
 }

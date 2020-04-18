@@ -28,13 +28,17 @@ You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
 
 `yarn add baby-i-am-faded @emotion/core react-emotion-animations`
 
+> Note: `react-emotion-animations` is a package with other emotion animations you can use, it is not necessary
+
 ## Usage
 
 ```tsx
 import { Faded } from 'baby-i-am-faded'
 
 export const App = () => (
-    <Faded damping={0.8}>
+    <Faded cascade damping={0.8} triggerOnce>
+        <Placeholder />
+        <Placeholder />
         <Placeholder />
         <Placeholder />
         <Placeholder />
