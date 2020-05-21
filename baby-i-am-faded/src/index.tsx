@@ -88,7 +88,7 @@ export const Faded = forwardRef(
 
             return React.Children.map(nodes, (node, index) => {
                 const childElement = node as React.ReactElement
-                const css = [childElement.props.css]
+                const css = childElement.props?.css ? [childElement.props?.css] : []
                 if (inView) {
                     css.push(
                         getAnimationCss({
