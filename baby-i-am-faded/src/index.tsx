@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import { Keyframes } from '@emotion/serialize'
-import React, { forwardRef } from 'react'
-import { useInView } from 'react-intersection-observer'
+import React, { forwardRef, FC, ReactNode } from 'react'
+import { useInView, InView } from 'react-intersection-observer'
 import { isFragment } from 'react-is'
 import { useCombinedRefs, cloneElement, fadeInUp } from './support'
 
 export type FadedProps = {
+    /*
+    Trigger animation only when in view
+    */
+    whenInView?: boolean
     /**
      * Stagger its children animations
      */
@@ -28,13 +32,17 @@ export type FadedProps = {
      */
     threshold?: number
     /**
+     * The initial delay
+     */
+    delay?: number
+    /**
      * Trigger only the first time the element come in view
      */
     triggerOnce?: boolean
-    children?: any
+    children?: ReactNode | ReactNode[]
 }
 
-export const Faded = forwardRef(
+export const Faded: FC<FadedProps> = forwardRef(
     (
         {
             cascade = false,
@@ -43,14 +51,20 @@ export const Faded = forwardRef(
             threshold = 0.15,
             triggerOnce = false,
             animation = fadeInUp,
+            whenInView = false,
+            delay = 0,
             children,
             ...rest
         }: FadedProps,
-        ref1,
+        ref1: any,
     ) => {
-        const [ref, inView] = useInView({ threshold, triggerOnce })
-        const combinedRef = ref // useCombinedRefs(ref1, ref)
-        function makeAnimated(nodes: React.ReactNode): React.ReactNode {
+        function makeAnimated({
+            inView,
+            nodes,
+        }: {
+            nodes: React.ReactNode
+            inView
+        }): React.ReactNode {
             if (!nodes) {
                 return null
             }
@@ -59,7 +73,7 @@ export const Faded = forwardRef(
                 return jsx(
                     'div',
                     {
-                        css: getAnimationCss({ keyframes: animation }),
+                        css: getAnimationCss({ keyframes: animation, delay }),
                     },
                     nodes,
                 )
@@ -75,7 +89,9 @@ export const Faded = forwardRef(
                             }}
                             css={getAnimationCss({
                                 keyframes: animation,
-                                delay: cascade ? index * duration * damping : 0,
+                                delay:
+                                    delay +
+                                    (cascade ? index * duration * damping : 0),
                                 duration,
                             })}
                             key={index}
@@ -88,12 +104,16 @@ export const Faded = forwardRef(
 
             return React.Children.map(nodes, (node, index) => {
                 const childElement = node as React.ReactElement
-                const css = childElement.props?.css ? [childElement.props?.css] : []
+                const css = childElement.props?.css
+                    ? [childElement.props?.css]
+                    : []
                 if (inView) {
                     css.push(
                         getAnimationCss({
                             keyframes: animation,
-                            delay: cascade ? index * duration * damping : 0,
+                            delay:
+                                delay +
+                                (cascade ? index * duration * damping : 0),
                             duration,
                         }),
                     )
@@ -106,9 +126,24 @@ export const Faded = forwardRef(
                 })
             })
         }
+        if (whenInView) {
+            return (
+                <InView
+                    threshold={threshold}
+                    triggerOnce={triggerOnce}
+                    {...rest}
+                >
+                    {({ inView, ref, entry }) => (
+                        <div ref={ref}>
+                            {makeAnimated({ inView, nodes: children })}
+                        </div>
+                    )}
+                </InView>
+            )
+        }
         return (
-            <div ref={combinedRef} {...rest}>
-                {makeAnimated(children)}
+            <div ref={ref1}>
+                {makeAnimated({ inView: true, nodes: children })}
             </div>
         )
     },

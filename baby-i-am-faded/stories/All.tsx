@@ -91,11 +91,11 @@ export const WithBounce = () => (
     </Faded>
 )
 
-export const OutOfView = () => (
+export const WhenInView = () => (
     <Stack spacing='40px'>
         {new Array(100).fill(0).map((_, i) => (
-            <Box borderWidth='1px'>
-                <Faded cascade triggerOnce>
+            <Box key={i} borderWidth='1px'>
+                <Faded cascade triggerOnce whenInView>
                     <Placeholder />
                     <Placeholder />
                     <Placeholder />
