@@ -143,7 +143,7 @@ export const Faded: FC<FadedProps> = forwardRef(
             )
         }
         return (
-            <div ref={ref1}>
+            <div ref={ref1} {...rest}>
                 {makeAnimated({ inView: true, nodes: children })}
             </div>
         )
