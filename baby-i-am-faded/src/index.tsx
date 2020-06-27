@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import { Keyframes } from '@emotion/serialize'
-import React, { forwardRef, FC, ReactNode } from 'react'
+import React, { forwardRef, FC, ReactNode, isValidElement } from 'react'
 import { useInView, InView } from 'react-intersection-observer'
 import { isFragment } from 'react-is'
 import { useCombinedRefs, cloneElement, fadeInUp } from './support'
@@ -104,6 +104,9 @@ export const Faded: FC<FadedProps> = forwardRef(
             }
 
             return React.Children.map(nodes, (node, index) => {
+                if (!isValidElement(node)) {
+                    return node
+                }
                 const childElement = node as React.ReactElement
                 const css = childElement.props?.css
                     ? [childElement.props?.css]
