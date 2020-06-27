@@ -78,6 +78,7 @@ export const Faded: FC<FadedProps> = forwardRef(
                     nodes,
                 )
             }
+            // cascade the words like https://codepen.io/jh3y/pen/wJMPYQ
             if (typeof nodes === 'string') {
                 const words = nodes.split(' ')
                 return words.map((word, index) => {
