@@ -14,7 +14,8 @@
     },
     "files": [
         "/dist/*",
-        "/esm/*"
+        "/esm/*",
+        "src"
     ],
     "scripts": {
         "compile": "tsc && tsc --module ESNext --outDir esm",
