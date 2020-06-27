@@ -27,6 +27,6 @@ jobs:
           prefix: react-emotion-animations
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: cd react-emotion-animations && yarn publish
+      - run: cd react-emotion-animations && yarn publish || echo 'cannot publish'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}

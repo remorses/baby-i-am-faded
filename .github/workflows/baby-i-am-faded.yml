@@ -27,6 +27,6 @@ jobs:
           prefix: baby-i-am-faded
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: cd baby-i-am-faded && yarn publish
+      - run: cd baby-i-am-faded && yarn publish || echo 'cannot publish'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
