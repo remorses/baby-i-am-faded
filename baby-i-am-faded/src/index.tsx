@@ -108,7 +108,7 @@ export const Faded: FC<FadedProps> = forwardRef(
                     return node
                 }
                 const childElement = node as React.ReactElement
-                const css = childElement.props?.css
+                const css = childElement.props?.css // TODO if the css is a function it wont work
                     ? [childElement.props?.css]
                     : []
                 if (inView) {
