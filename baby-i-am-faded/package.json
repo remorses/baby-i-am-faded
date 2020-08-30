@@ -24,7 +24,8 @@
         "example": "parcel serve --no-autoinstall example/index.html",
         "dev": "yarn compile && node dist",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "chromatic": "npx chromatic --project-token=uzx0853hob"
     },
     "keywords": [],
     "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
@@ -42,6 +43,7 @@
         "@types/node": "^12.0.7",
         "@types/react": "^16.9.25",
         "babel-loader": "^8.1.0",
+        "chromatic": "^5.0.0",
         "dotenv": "^8.2.0",
         "emotion-theming": "^10.0.27",
         "mocha": "^6.1.4",

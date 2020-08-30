@@ -7,7 +7,6 @@ yarn-error.log*
 .DS_Store
 play*
 !playground*
-.storybook
 dist/*
 esm
 dist
