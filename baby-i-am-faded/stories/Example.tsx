@@ -32,7 +32,7 @@ export const SomeStory = () => {
     return (
         <Stack>
             <Alert status='error'>
-                <AlertTitle>hello</AlertTitle>
+                <AlertTitle>hello to you</AlertTitle>
             </Alert>
             <Button>Hello</Button>
             <Faded>
