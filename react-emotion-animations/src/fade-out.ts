@@ -1,6 +1,6 @@
 
 import  { Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const fadeOut: Animation = {
   from: {

@@ -1,7 +1,7 @@
 {
     "name": "baby-i-am-faded",
     "_": "[bump if baby-i-am-faded]",
-    "version": "1.0.3",
+    "version": "2.0.0",
     "description": "",
     "main": "dist/index.js",
     "module": "esm/index.js",
@@ -32,8 +32,8 @@
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.9.0",
-        "@chakra-ui/core": "^0.7.0",
-        "@emotion/core": "^10.0.28",
+        "@chakra-ui/react": "latest",
+        "@emotion/react": "^11",
         "@storybook/addon-actions": "^5.3.17",
         "@storybook/addon-links": "^5.3.17",
         "@storybook/addons": "^5.3.17",
@@ -45,22 +45,21 @@
         "babel-loader": "^8.1.0",
         "chromatic": "^5.0.0",
         "dotenv": "^8.2.0",
-        "emotion-theming": "^10.0.27",
         "mocha": "^6.1.4",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-emotion-animations": "*",
+        "react-emotion-animations": "2.x.x",
         "sucrase": "^3.12.1",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3"
     },
     "peerDependencies": {
-        "@emotion/core": "*"
+        "@emotion/react": "*"
     },
     "dependencies": {
-        "@emotion/serialize": "^0.11.16",
-        "@emotion/styled": "^10.0.27",
-        "react-intersection-observer": "^8.26.1",
+        "@emotion/serialize": "^1.0.0",
+        "@emotion/styled": "^11",
+        "react-intersection-observer": "^8.31.0",
         "react-is": "^16.13.1"
     }
 }

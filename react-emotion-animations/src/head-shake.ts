@@ -1,7 +1,7 @@
 
 import { compose, translateX, rotateY } from './utils';
 import  { Keyframe, Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const translateAndRotate = compose(translateX, rotateY);
 

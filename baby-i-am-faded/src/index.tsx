@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx, keyframes } from '@emotion/react'
 import { Keyframes } from '@emotion/serialize'
 import React, { forwardRef, FC, ReactNode, isValidElement } from 'react'
 import { useInView, InView } from 'react-intersection-observer'
@@ -157,7 +157,7 @@ export function getAnimationCss({
     duration = 1000,
     delay = 0,
     timingFunction = 'ease',
-    keyframes = fadeInUp,
+    keyframes = fadeInUp as any,
     iterationCount = 1,
 }) {
     return css`

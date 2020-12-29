@@ -25,7 +25,7 @@ You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
 
 ## Install
 
-`yarn add baby-i-am-faded @emotion/core react-emotion-animations`
+`yarn add baby-i-am-faded @emotion/react react-emotion-animations`
 
 > Note: `react-emotion-animations` is a package with other emotion animations you can use, it is not necessary
 
@@ -64,7 +64,7 @@ export const WithWobble = () => (
 ## With custom animation
 
 ```tsx
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
 
 const fadeInUp = keyframes`
     from {

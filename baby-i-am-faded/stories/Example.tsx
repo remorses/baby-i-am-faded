@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    ThemeProvider,
+    ChakraProvider,
     CSSReset,
     Box,
     ColorModeProvider,
@@ -9,7 +9,7 @@ import {
     Button,
     Alert,
     AlertTitle,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { Faded } from '../src'
 import { wobble, bounceInRight } from 'react-emotion-animations'
 
@@ -18,12 +18,12 @@ export default {
     component: Faded,
     decorators: [
         (storyFn) => (
-            <ThemeProvider>
+            <ChakraProvider>
                 <Box maxW='800px' p='30px' border='1px solid red'>
                     <CSSReset />
                     {storyFn()}
                 </Box>
-            </ThemeProvider>
+            </ChakraProvider>
         ),
     ],
 }

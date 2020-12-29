@@ -1,7 +1,7 @@
 
 import { rotate3d, translate3d } from './utils';
 import  { Keyframe, Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const hingeUp: Keyframe = {
   transform: rotate3d(0, 0, 1, 80),

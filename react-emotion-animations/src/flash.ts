@@ -1,6 +1,6 @@
 
 import  { Keyframe, Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const visible: Keyframe = {
   opacity: 1

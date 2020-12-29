@@ -1,7 +1,7 @@
 
 import { cubicBezier, scale3d } from './utils';
 import  { Keyframe, Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const timing: Keyframe = {
   animationTimingFunction: cubicBezier(

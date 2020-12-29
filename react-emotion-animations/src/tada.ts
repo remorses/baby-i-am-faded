@@ -1,7 +1,7 @@
 
 import { compose, scale3d, rotate3d } from './utils';
 import  { Keyframe, Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const scaleAndRotate = compose(scale3d, rotate3d);
 

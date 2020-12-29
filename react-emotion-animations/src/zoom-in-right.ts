@@ -6,7 +6,7 @@ import {
   cubicBezier
 } from './utils';
 import  { Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const scaleAndTranslate = compose(scale3d, translate3d);
 

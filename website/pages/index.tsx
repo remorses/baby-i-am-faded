@@ -1,7 +1,7 @@
 import React from 'react'
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { Stack, Heading } from '@chakra-ui/core'
+import { Stack, Heading } from '@chakra-ui/react'
 import { Faded } from 'baby-i-am-faded/src'
 
 export default (props) => {

@@ -6,7 +6,7 @@ import {
   translate3d
 } from './utils';
 import  { Animation } from './types';
-import  { keyframes } from '@emotion/core';
+import  { keyframes } from '@emotion/react';
 
 const scale3dAndTranslate = compose(scale3d, translate3d);
 const scaleAndTranslate = compose(scale, translate3d);
