@@ -1,7 +1,7 @@
 {
     "name": "react-emotion-animations",
     "_": "[bump if react-emotion-animations]",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Animations from animate.css exported as emotion styled keyframes animations",
     "main": "dist/index.js",
     "module": "esm/index.js",
