@@ -8,7 +8,22 @@ import {
     Heading,
 } from '@chakra-ui/react'
 import { Faded } from '../src'
+import { Global } from '@emotion/react'
 import { wobble, bounceInRight } from 'react-emotion-animations'
+
+const ANIMATION_NAME = 'fadeInUp'
+const keyframesStyles = `
+@keyframes ${ANIMATION_NAME} {
+    from {
+        opacity: 0;
+        transform: translate3d(0px, -2em, 0px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+`
 
 export default {
     title: 'All',
@@ -16,6 +31,7 @@ export default {
     decorators: [
         (storyFn) => (
             <ChakraProvider>
+                <Global styles={keyframesStyles} />
                 <Box maxW='800px' p='30px' border='1px solid red'>
                     <CSSReset />
                     {storyFn()}
@@ -30,7 +46,7 @@ const Placeholder = ({ ...props }) => {
 }
 
 export const List = () => (
-    <Faded cascade>
+    <Faded animationName={ANIMATION_NAME} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -39,12 +55,12 @@ export const List = () => (
 )
 export const Text = () => (
     <Heading>
-        <Faded cascade>Incididunt ullamco id id pariatur velit et.</Faded>
+        <Faded animationName={ANIMATION_NAME} cascade>Incididunt ullamco id id pariatur velit et.</Faded>
     </Heading>
 )
 
 export const Faster = () => (
-    <Faded duration={200} cascade>
+    <Faded animationName={ANIMATION_NAME} duration={200} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -53,7 +69,7 @@ export const Faster = () => (
 )
 
 export const Damped = () => (
-    <Faded damping={0.8} cascade>
+    <Faded animationName={ANIMATION_NAME} damping={2} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -62,8 +78,8 @@ export const Damped = () => (
 )
 
 export const usingAs = () => (
-    // @ts-ignore
-    <Stack as={Faded} damping={0.9} cascade>
+    
+    <Stack animationName={ANIMATION_NAME} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -73,7 +89,7 @@ export const usingAs = () => (
 
 export const WithWobble = () => (
     // @ts-ignore
-    <Faded animation={wobble} as={Faded} cascade>
+    <Faded animationName={ANIMATION_NAME} animationName={wobble} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -83,7 +99,7 @@ export const WithWobble = () => (
 
 export const WithBounce = () => (
     // @ts-ignore
-    <Faded animation={bounceInRight} as={Faded} cascade>
+    <Faded animationName={ANIMATION_NAME} animationName={bounceInRight} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -95,7 +111,7 @@ export const WhenInView = () => (
     <Stack spacing='40px'>
         {new Array(100).fill(0).map((_, i) => (
             <Box key={i} borderWidth='1px'>
-                <Faded cascade triggerOnce whenInView>
+                <Faded cascade animationName={ANIMATION_NAME} triggerOnce whenInView>
                     <Placeholder />
                     <Placeholder />
                     <Placeholder />

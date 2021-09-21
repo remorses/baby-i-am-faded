@@ -1,14 +1,6 @@
-/** @jsx jsx */
-import { jsx, keyframes } from '@emotion/react'
+
 import React from 'react'
 
-export const cloneElement = (element, props) =>
-    jsx(element.type, {
-        key: element.key,
-        ref: element.ref,
-        ...element.props,
-        ...props,
-    })
 
 export function useCombinedRefs(...refs) {
     const targetRef = React.useRef()
@@ -27,14 +19,3 @@ export function useCombinedRefs(...refs) {
 
     return targetRef
 }
-
-export const fadeInUp = keyframes`
-    from {
-        opacity: 0;
-        transform: translate3d(0px, -20px, 0px);
-    }
-    to {
-        opacity: 1;
-        transform: 'none';
-    }
-`

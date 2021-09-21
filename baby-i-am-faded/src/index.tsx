@@ -1,10 +1,14 @@
-/** @jsx jsx */
-import { css, jsx, keyframes } from '@emotion/react'
-import { Keyframes } from '@emotion/serialize'
-import React, { forwardRef, FC, ReactNode, isValidElement } from 'react'
-import { useInView, InView } from 'react-intersection-observer'
+import memoize from 'micro-memoize'
+import React, {
+    cloneElement,
+    CSSProperties,
+    FC,
+    forwardRef,
+    isValidElement,
+    ReactNode,
+} from 'react'
+import { InView } from 'react-intersection-observer'
 import { isFragment } from 'react-is'
-import { useCombinedRefs, cloneElement, fadeInUp } from './support'
 
 export type FadedProps = {
     /*
@@ -16,7 +20,7 @@ export type FadedProps = {
      */
     cascade?: boolean
     /**
-     * Makes The stagger animation slower
+     * Makes The stagger animation slower, must be higher than one
      */
     damping?: number
     /**
@@ -26,7 +30,7 @@ export type FadedProps = {
     /**
      * Custom emotion animation
      */
-    animation?: Keyframes
+    animationName: string
     /**
      * The ratio with the element is triggered when in view, from 0 to 1
      */
@@ -35,6 +39,10 @@ export type FadedProps = {
      * The initial delay
      */
     delay?: number
+    /**
+     * The timing function
+     */
+    timingFunction?: CSSProperties['animationTimingFunction']
     /**
      * Trigger only the first time the element come in view
      */
@@ -46,11 +54,12 @@ export const Faded: FC<FadedProps> = forwardRef(
     (
         {
             cascade = false,
-            damping = 0.3,
+            damping = 1,
             duration = 400,
             threshold = 0.15,
             triggerOnce = false,
-            animation = fadeInUp,
+            animationName: animation,
+            timingFunction = 'ease-in-out',
             whenInView = false,
             delay = 0,
             children,
@@ -58,6 +67,9 @@ export const Faded: FC<FadedProps> = forwardRef(
         }: FadedProps,
         ref1: any,
     ) => {
+        if (damping < 0.1) {
+            throw new Error(`damping must not be zero or near zero`)
+        }
         function makeAnimated({
             inView,
             nodes,
@@ -70,10 +82,15 @@ export const Faded: FC<FadedProps> = forwardRef(
             }
 
             if (isFragment(nodes)) {
-                return jsx(
+                return React.createElement(
                     'div',
                     {
-                        css: getAnimationCss({ keyframes: animation, delay }),
+                        style: getAnimationCss(
+                            animation,
+                            delay,
+                            duration,
+                            timingFunction,
+                        ),
                     },
                     nodes,
                 )
@@ -87,14 +104,16 @@ export const Faded: FC<FadedProps> = forwardRef(
                             style={{
                                 display: 'inline-block',
                                 whiteSpace: 'pre',
-                            }}
-                            css={getAnimationCss({
-                                keyframes: animation,
-                                delay:
+                                ...getAnimationCss(
+                                    animation,
                                     delay +
-                                    (cascade ? index * duration * damping : 0),
-                                duration,
-                            })}
+                                        (cascade
+                                            ? (index * duration) / (2 / damping)
+                                            : 0),
+                                    duration,
+                                    timingFunction,
+                                ),
+                            }}
                             key={index}
                         >
                             {index !== words.length - 1 ? word + ' ' : word}
@@ -108,24 +127,24 @@ export const Faded: FC<FadedProps> = forwardRef(
                     return node
                 }
                 const childElement = node as React.ReactElement
-                const css = childElement.props?.css // TODO if the css is a function it wont work
-                    ? [childElement.props?.css]
-                    : []
+                const style = childElement.props?.style
+                    ? {...childElement.props?.style}
+                    : {}
                 if (inView) {
-                    css.push(
-                        getAnimationCss({
-                            keyframes: animation,
-                            delay:
-                                delay +
-                                (cascade ? index * duration * damping : 0),
+                    Object.assign(
+                        style,
+                        getAnimationCss(
+                            animation,
+                            delay + (index * duration) / (2 / damping),
                             duration,
-                        }),
+                            timingFunction,
+                        ),
                     )
                 } else {
-                    css.push({ opacity: 0 })
+                    Object.assign(style, { opacity: 0 })
                 }
                 return cloneElement(childElement, {
-                    css,
+                    style,
                     // children: makeAnimated(childElement.props.children),
                 })
             })
@@ -153,20 +172,14 @@ export const Faded: FC<FadedProps> = forwardRef(
     },
 )
 
-export function getAnimationCss({
-    duration = 1000,
-    delay = 0,
-    timingFunction = 'ease',
-    keyframes = fadeInUp as any,
-    iterationCount = 1,
-}) {
-    return css`
-        animation-duration: ${duration}ms;
-        animation-timing-function: ${timingFunction};
-        animation-delay: ${delay}ms;
-        animation-name: ${keyframes};
-        animation-direction: normal;
-        animation-fill-mode: both;
-        animation-iteration-count: ${iterationCount};
-    `
-}
+export const getAnimationCss = memoize(function getAnimationCss(
+    keyframes: string,
+    delay: number,
+    duration: number,
+    timingFunction: string,
+) {
+    return {
+        animation: `${duration}ms ${keyframes} ${delay}ms normal both running ${timingFunction}`,
+        // willChange: 'opacity'
+    }
+})

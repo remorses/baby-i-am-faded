@@ -1,7 +1,7 @@
 {
     "name": "baby-i-am-faded",
     "_": "[bump if baby-i-am-faded]",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "description": "",
     "main": "dist/index.js",
     "module": "esm/index.js",
@@ -53,12 +53,9 @@
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3"
     },
-    "peerDependencies": {
-        "@emotion/react": "*"
-    },
+    "peerDependencies": {},
     "dependencies": {
-        "@emotion/serialize": "^1.0.0",
-        "@emotion/styled": "^11",
+        "micro-memoize": "^4.0.9",
         "react-intersection-observer": "^8.31.0",
         "react-is": "^16.13.1"
     }
