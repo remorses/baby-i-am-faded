@@ -23,6 +23,19 @@ const keyframesStyles = `
         transform: none;
     }
 }
+
+
+@keyframes swing-top-fwd {
+    0% {
+      transform: rotateX(0);
+      transform-origin: top;
+    }
+    100% {
+      transform: rotateX(180deg);
+      transform-origin: top;
+    }
+  }
+  
 `
 
 export default {
@@ -87,19 +100,10 @@ export const usingAs = () => (
     </Stack>
 )
 
-export const WithWobble = () => (
-    // @ts-ignore
-    <Faded animationName={ANIMATION_NAME} animationName={wobble} as={Faded} cascade>
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-    </Faded>
-)
 
-export const WithBounce = () => (
+export const WithSwing = () => (
     // @ts-ignore
-    <Faded animationName={ANIMATION_NAME} animationName={bounceInRight} as={Faded} cascade>
+    <Faded animationName={'swing-top-fwd'}  as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
