@@ -1,4 +1,3 @@
-import memoize from 'micro-memoize'
 import React, {
     cloneElement,
     CSSProperties,
@@ -128,7 +127,7 @@ export const Faded: FC<FadedProps> = forwardRef(
                 }
                 const childElement = node as React.ReactElement
                 const style = childElement.props?.style
-                    ? {...childElement.props?.style}
+                    ? { ...childElement.props?.style }
                     : {}
                 if (inView) {
                     Object.assign(
@@ -172,7 +171,7 @@ export const Faded: FC<FadedProps> = forwardRef(
     },
 )
 
-export const getAnimationCss = memoize(function getAnimationCss(
+export function getAnimationCss(
     keyframes: string,
     delay: number,
     duration: number,
@@ -182,4 +181,4 @@ export const getAnimationCss = memoize(function getAnimationCss(
         animation: `${duration}ms ${keyframes} ${delay}ms normal both running ${timingFunction}`,
         // willChange: 'opacity'
     }
-})
+}
