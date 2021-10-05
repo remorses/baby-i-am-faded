@@ -1,5 +1,6 @@
 import React, {
     cloneElement,
+    ComponentPropsWithoutRef,
     CSSProperties,
     FC,
     forwardRef,
@@ -47,7 +48,7 @@ export type FadedProps = {
      */
     triggerOnce?: boolean
     children?: ReactNode | ReactNode[]
-}
+} & ComponentPropsWithoutRef<'div'>
 
 export const Faded: FC<FadedProps> = forwardRef(
     (
@@ -153,10 +154,10 @@ export const Faded: FC<FadedProps> = forwardRef(
                 <InView
                     threshold={threshold}
                     triggerOnce={triggerOnce}
-                    {...rest}
+                    
                 >
                     {({ inView, ref, entry }) => (
-                        <div ref={ref}>
+                        <div ref={ref} {...rest}>
                             {makeAnimated({ inView, nodes: children })}
                         </div>
                     )}
