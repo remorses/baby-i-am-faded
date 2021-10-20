@@ -17,7 +17,6 @@ Animates react components when in view, uses `emotion` for the animations code, 
 -   🍃 **Lightweight** - Very little footprint on your project and no other dependencies required
 -   🚀 **Fast** - Buttery smooth experience thanks to the use of native asynchronous APIs and hardware acceleration
 
-
 ## Demo
 
 You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
@@ -26,9 +25,7 @@ You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
 
 `yarn add baby-i-am-faded`
 
-
 ## Usage
-
 
 Supposing you have this animation in your css
 
@@ -50,7 +47,6 @@ You can use the faded component like this
 ```tsx
 import { Faded } from 'baby-i-am-faded'
 
-
 export const App = () => (
     <Faded animationName='fadeIn' cascade triggerOnce>
         <Placeholder />
@@ -61,4 +57,19 @@ export const App = () => (
         <Placeholder />
     </Faded>
 )
+```
+
+# TODO
+
+-   Add animation styles after load event, to prevent fps lag on mobile devices (like aos does)
+
+```ts
+window.addEventListener('load', function () {
+    addStyles()
+})
+
+if (['complete', 'interactive'].indexOf(document.readyState) > -1) {
+    // Initialize if default startEvent was already fired
+    addStyles()
+}
 ```
