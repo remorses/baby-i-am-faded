@@ -1,7 +1,7 @@
 {
     "name": "baby-i-am-faded",
     "_": "[bump if baby-i-am-faded]",
-    "version": "3.0.3",
+    "version": "4.0.0",
     "description": "",
     "main": "dist/index.js",
     "module": "esm/index.js",
