@@ -13,8 +13,9 @@
         "timeout": 9999999999
     },
     "files": [
-        "/dist/*",
-        "/esm/*",
+        "dist",
+        "esm",
+        "styles.css",
         "src"
     ],
     "scripts": {
@@ -55,7 +56,6 @@
     },
     "peerDependencies": {},
     "dependencies": {
-        "react-intersection-observer": "^8.31.0",
-        "react-is": "^16.13.1"
+        "react-intersection-observer": "^8.32.2"
     }
 }

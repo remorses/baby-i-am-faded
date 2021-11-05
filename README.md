@@ -45,6 +45,7 @@ You can use the faded component like this
 
 ```tsx
 import { Faded } from 'baby-i-am-faded'
+import 'baby-i-am-faded/styles.css'
 
 export const App = () => (
     <Faded animationName='fadeIn' cascade triggerOnce>
