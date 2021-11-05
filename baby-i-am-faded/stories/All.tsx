@@ -84,7 +84,7 @@ export const Faster = () => (
 )
 
 export const Damped = () => (
-    <Faded animationName={ANIMATION_NAME} damping={2} cascade>
+    <Faded animationName={ANIMATION_NAME} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />

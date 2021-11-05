@@ -12,7 +12,7 @@ export default (props) => {
                     .fill(0)
                     .map((x, i) => (
                         <Heading key={i}>
-                            <Faded delay={i * 200} damping={0.7} cascade>
+                            <Faded delay={i * 200} cascade>
                                 baby-i-am-faded is very cool
                             </Faded>
                         </Heading>
