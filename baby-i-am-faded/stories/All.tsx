@@ -61,7 +61,7 @@ const Placeholder = ({ ...props }) => {
 }
 
 export const List = () => (
-    <Faded animationName={ANIMATION_NAME} cascade>
+    <Faded cascade timingFunction='ease-out' >
         <Placeholder />
         <Placeholder />
         <Placeholder />

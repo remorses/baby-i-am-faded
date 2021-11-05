@@ -30,7 +30,7 @@ export default {
 
 export const SomeStory = () => {
     return (
-        <Stack>
+        <Stack as={Faded} cascade>
             <Alert status='error'>
                 <AlertTitle>hello to you</AlertTitle>
             </Alert>

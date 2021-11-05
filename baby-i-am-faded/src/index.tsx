@@ -1,16 +1,18 @@
 import React, {
-    cloneElement,
     ComponentPropsWithoutRef,
-    CSSProperties,
+    ElementType,
     FC,
     forwardRef,
-    isValidElement,
     ReactNode,
+    useMemo,
 } from 'react'
 import { InView } from 'react-intersection-observer'
-import { isFragment } from 'react-is'
 
 export type FadedProps = {
+    /*
+    The tag element to use for the component.
+    */
+    as?: ElementType
     /*
     Trigger animation only when in view
     */
@@ -20,9 +22,9 @@ export type FadedProps = {
      */
     cascade?: boolean
     /**
-     * Makes The stagger animation slower, must be higher than one
+     * The amount of time between one element animation and the next in milliseconds
      */
-    damping?: number
+    cascadeIncrement?: number
     /**
      * duration in milliseconds
      */
@@ -30,7 +32,7 @@ export type FadedProps = {
     /**
      * Custom emotion animation
      */
-    animationName: string
+    animationName?: string
     /**
      * The ratio with the element is triggered when in view, from 0 to 1
      */
@@ -42,7 +44,7 @@ export type FadedProps = {
     /**
      * The timing function
      */
-    timingFunction?: CSSProperties['animationTimingFunction']
+    timingFunction?: keyof typeof timingFunctions
     /**
      * Trigger only the first time the element come in view
      */
@@ -50,16 +52,46 @@ export type FadedProps = {
     children?: ReactNode | ReactNode[]
 } & ComponentPropsWithoutRef<'div'>
 
+const timingFunctions = {
+    linear: 'cubic-bezier(.250, .250, .750, .750)',
+
+    ease: 'cubic-bezier(.250, .100, .250, 1)',
+    'ease-in': 'cubic-bezier(.420, 0, 1, 1)',
+    'ease-out': 'cubic-bezier(.000, 0, .580, 1)',
+    'ease-in-out': 'cubic-bezier(.420, 0, .580, 1)',
+
+    'ease-in-back': 'cubic-bezier(.6, -.28, .735, .045)',
+    'ease-out-back': 'cubic-bezier(.175, .885, .32, 1.275)',
+    'ease-in-out-back': 'cubic-bezier(.68, -.55, .265, 1.55)',
+
+    'ease-in-sine': 'cubic-bezier(.47, 0, .745, .715)',
+    'ease-out-sine': 'cubic-bezier(.39, .575, .565, 1)',
+    'ease-in-out-sine': 'cubic-bezier(.445, .05, .55, .95)',
+
+    'ease-in-quad': 'cubic-bezier(.55, .085, .68, .53)',
+    'ease-out-quad': 'cubic-bezier(.25, .46, .45, .94)',
+    'ease-in-out-quad': 'cubic-bezier(.455, .03, .515, .955)',
+
+    'ease-in-cubic': 'cubic-bezier(.55, .085, .68, .53)',
+    'ease-out-cubic': 'cubic-bezier(.25, .46, .45, .94)',
+    'ease-in-out-cubic': 'cubic-bezier(.455, .03, .515, .955)',
+
+    'ease-in-quart': 'cubic-bezier(.55, .085, .68, .53)',
+    'ease-out-quart': 'cubic-bezier(.25, .46, .45, .94)',
+    'ease-in-out-quart': 'cubic-bezier(.455, .03, .515, .955)',
+}
+
 export const Faded: FC<FadedProps> = forwardRef(
     (
         {
+            as: As = 'div',
             cascade = false,
-            damping = 1,
             duration = 400,
             threshold = 0.15,
+            cascadeIncrement = 200,
             triggerOnce = false,
-            animationName: animation,
-            timingFunction = 'ease-in-out',
+            animationName,
+            timingFunction = 'ease-out',
             whenInView = false,
             delay = 0,
             style,
@@ -68,124 +100,60 @@ export const Faded: FC<FadedProps> = forwardRef(
         }: FadedProps,
         ref1: any,
     ) => {
-        if (damping < 0.1) {
-            throw new Error(`damping must not be zero or near zero`)
-        }
-        function makeAnimated({
-            inView,
-            nodes,
-        }: {
-            nodes: React.ReactNode
-            inView
-        }): React.ReactNode {
-            if (!nodes) {
-                return null
-            }
+        const variablesStyle = useMemo(() => {
+            const variablesStyle: any = { ...style }
 
-            if (isFragment(nodes)) {
-                return React.createElement(
-                    'div',
-                    {
-                        style: getAnimationCss(
-                            animation,
-                            delay,
-                            duration,
-                            timingFunction,
-                        ),
-                    },
-                    nodes,
-                )
-            }
-            // cascade the words like https://codepen.io/jh3y/pen/wJMPYQ
-            if (typeof nodes === 'string') {
-                const words = nodes.split(' ')
-                return words.map((word, index) => {
-                    return (
-                        <span
-                            style={{
-                                display: 'inline-block',
-                                whiteSpace: 'pre',
-                                ...getAnimationCss(
-                                    animation,
-                                    delay +
-                                        (cascade
-                                            ? (index * duration) / (2 / damping)
-                                            : 0),
-                                    duration,
-                                    timingFunction,
-                                ),
-                            }}
-                            key={index}
-                        >
-                            {index !== words.length - 1 ? word + ' ' : word}
-                        </span>
-                    )
-                })
-            }
+            variablesStyle['--increment'] = `${cascadeIncrement}ms`
+            variablesStyle['--duration'] = `${duration}ms`
 
-            return React.Children.map(nodes, (node, index) => {
-                if (!isValidElement(node)) {
-                    return node
-                }
-                const childElement = node as React.ReactElement
-                const style = childElement.props?.style
-                    ? { ...childElement.props?.style }
-                    : {}
-                if (inView) {
-                    Object.assign(
-                        style,
-                        getAnimationCss(
-                            animation,
-                            delay + (index * duration) / (2 / damping),
-                            duration,
-                            timingFunction,
-                        ),
-                    )
+            variablesStyle['--easing'] =
+                timingFunctions[timingFunction] || timingFunction
+
+            if (delay) {
+                if (!cascade) {
+                    variablesStyle['--delay'] = delay
                 } else {
-                    Object.assign(style, { opacity: 0 })
+                    variablesStyle['--initial-delay'] = `${delay}ms`
                 }
-                return cloneElement(childElement, {
-                    style,
-                    // children: makeAnimated(childElement.props.children),
-                })
-            })
-        }
+            }
+            if (animationName) {
+                variablesStyle['--animationName'] = animationName
+            }
+
+            return variablesStyle
+        }, [animationName, delay, duration, timingFunction, cascade])
         if (whenInView) {
             return (
                 <InView threshold={threshold} triggerOnce={triggerOnce}>
                     {({ inView, ref, entry }) => (
-                        <div ref={ref} {...rest}>
-                            {makeAnimated({ inView, nodes: children })}
-                        </div>
+                        <As
+                            style={variablesStyle}
+                            className={
+                                inView
+                                    ? `biaf${
+                                          cascade ? 'Cascade' : 'NonCascade'
+                                      }`
+                                    : 'biafHidden'
+                            }
+                            ref={ref}
+                            {...rest}
+                        >
+                            {children}
+                        </As>
                     )}
                 </InView>
             )
         }
+
         return (
-            <div
-                className='babyIAmFaded'
-                style={{
-                    ...style,
-                    // @ts-ignore
-                    '--increment': `${200}ms`,
-                }}
+            <As
+                className={`biaf${cascade ? 'Cascade' : 'NonCascade'}`}
+                style={variablesStyle}
                 ref={ref1}
                 {...rest}
             >
                 {children}
-            </div>
+            </As>
         )
     },
 )
-
-export function getAnimationCss(
-    keyframes: string,
-    delay: number,
-    duration: number,
-    timingFunction: string,
-) {
-    return {
-        animation: `${duration}ms ${keyframes} ${delay}ms normal both running ${timingFunction}`,
-        // willChange: 'opacity'
-    }
-}
