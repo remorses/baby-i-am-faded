@@ -132,6 +132,3 @@ export const WhenInView = () => (
         ))}
     </Stack>
 )
-
-
-
