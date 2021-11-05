@@ -88,6 +88,7 @@ export const Faded: FC<FadedProps> = forwardRef(
             cascade = false,
             duration = 400,
             threshold = 0.15,
+            className,
             cascadeIncrement = 200,
             triggerOnce = false,
             animationName,
@@ -121,7 +122,7 @@ export const Faded: FC<FadedProps> = forwardRef(
             }
 
             return variablesStyle
-        }, [animationName, delay, duration, timingFunction, cascade])
+        }, [style, animationName, delay, duration, timingFunction, cascade])
         if (whenInView) {
             return (
                 <InView threshold={threshold} triggerOnce={triggerOnce}>
@@ -129,8 +130,8 @@ export const Faded: FC<FadedProps> = forwardRef(
                         <As
                             style={variablesStyle}
                             className={
-                                inView
-                                    ? `biaf${
+                                className + inView
+                                    ? ` biaf${
                                           cascade ? 'Cascade' : 'NonCascade'
                                       }`
                                     : 'biafHidden'
@@ -147,7 +148,9 @@ export const Faded: FC<FadedProps> = forwardRef(
 
         return (
             <As
-                className={`biaf${cascade ? 'Cascade' : 'NonCascade'}`}
+                className={
+                    className + ` biaf${cascade ? 'Cascade' : 'NonCascade'}`
+                }
                 style={variablesStyle}
                 ref={ref1}
                 {...rest}
