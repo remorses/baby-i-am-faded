@@ -6,7 +6,5 @@
         "baby-i-am-faded"
     ],
     "scripts": {},
-    "devDependencies": {
-        "framer-motion": "^3.1.1"
-    }
+    "devDependencies": {}
 }
