@@ -61,7 +61,7 @@ const Placeholder = ({ ...props }) => {
 }
 
 export const List = () => (
-    <Faded cascade timingFunction='ease-out' >
+    <Faded cascade timingFunction='ease-out'>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -70,7 +70,9 @@ export const List = () => (
 )
 export const Text = () => (
     <Heading>
-        <Faded animationName={ANIMATION_NAME} cascade>Incididunt ullamco id id pariatur velit et.</Faded>
+        <Faded style={{ opacity: 0.6 }}>
+            Incididunt ullamco id id pariatur velit et.
+        </Faded>
     </Heading>
 )
 
@@ -93,7 +95,6 @@ export const Damped = () => (
 )
 
 export const usingAs = () => (
-    
     <Stack animationName={ANIMATION_NAME} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
@@ -102,10 +103,9 @@ export const usingAs = () => (
     </Stack>
 )
 
-
 export const WithSwing = () => (
     // @ts-ignore
-    <Faded animationName={'swing-top-fwd'}  as={Faded} cascade>
+    <Faded animationName={'swing-top-fwd'} as={Faded} cascade>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -117,7 +117,12 @@ export const WhenInView = () => (
     <Stack spacing='40px'>
         {new Array(100).fill(0).map((_, i) => (
             <Box key={i} borderWidth='1px'>
-                <Faded cascade animationName={ANIMATION_NAME} triggerOnce whenInView>
+                <Faded
+                    cascade
+                    animationName={ANIMATION_NAME}
+                    triggerOnce
+                    whenInView
+                >
                     <Placeholder />
                     <Placeholder />
                     <Placeholder />
