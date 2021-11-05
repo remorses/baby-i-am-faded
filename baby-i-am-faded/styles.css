@@ -1,0 +1,35 @@
+.babyIAmFaded > :not(style) {
+    animation-timing-function: var(--easing, ease-in-out);
+    animation-duration: var(--duration, 400ms);
+    animation-name: var(--animationName, babyFadeIn);
+    animation-delay: var(--delay, 0ms);
+}
+
+.babyIAmFaded :not(style):nth-child(0) {
+    --delay: calc(0 * var(--increment));
+}
+.babyIAmFaded :not(style):nth-child(1) {
+    --delay: calc(1 * var(--increment));
+}
+.babyIAmFaded :not(style):nth-child(2) {
+    --delay: calc(2 * var(--increment));
+}
+.babyIAmFaded :not(style):nth-child(3) {
+    --delay: calc(3 * var(--increment));
+}
+.babyIAmFaded :not(style):nth-child(4) {
+    --delay: calc(4 * var(--increment));
+}
+.babyIAmFaded :not(style):nth-child(5) {
+    --delay: calc(4 * var(--increment));
+}
+
+@keyframes babyFadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0px, -2em, 0px);
+    }
+    to {
+        transform: none;
+    }
+}

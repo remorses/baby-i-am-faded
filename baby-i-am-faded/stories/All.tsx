@@ -11,6 +11,8 @@ import { Faded } from '../src'
 import { Global } from '@emotion/react'
 import { wobble, bounceInRight } from 'react-emotion-animations'
 
+import '../styles.css'
+
 const ANIMATION_NAME = 'fadeInUp'
 const keyframesStyles = `
 @keyframes ${ANIMATION_NAME} {

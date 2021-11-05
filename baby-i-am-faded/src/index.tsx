@@ -62,6 +62,7 @@ export const Faded: FC<FadedProps> = forwardRef(
             timingFunction = 'ease-in-out',
             whenInView = false,
             delay = 0,
+            style,
             children,
             ...rest
         }: FadedProps,
@@ -151,11 +152,7 @@ export const Faded: FC<FadedProps> = forwardRef(
         }
         if (whenInView) {
             return (
-                <InView
-                    threshold={threshold}
-                    triggerOnce={triggerOnce}
-                    
-                >
+                <InView threshold={threshold} triggerOnce={triggerOnce}>
                     {({ inView, ref, entry }) => (
                         <div ref={ref} {...rest}>
                             {makeAnimated({ inView, nodes: children })}
@@ -165,8 +162,17 @@ export const Faded: FC<FadedProps> = forwardRef(
             )
         }
         return (
-            <div ref={ref1} {...rest}>
-                {makeAnimated({ inView: true, nodes: children })}
+            <div
+                className='babyIAmFaded'
+                style={{
+                    ...style,
+                    // @ts-ignore
+                    '--increment': `${200}ms`,
+                }}
+                ref={ref1}
+                {...rest}
+            >
+                {children}
             </div>
         )
     },

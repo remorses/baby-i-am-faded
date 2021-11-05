@@ -36,7 +36,6 @@ Supposing you have this animation in your css
         transform: translate3d(0px, -2em, 0px);
     }
     to {
-        opacity: 1;
         transform: none;
     }
 }
