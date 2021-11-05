@@ -20,7 +20,7 @@ jobs:
       - run: cd baby-i-am-faded && yarn
       # - run: yarn test
       - run: cd baby-i-am-faded && yarn compile
-      - run: git config pull.ff only
+      - run: git config pull.rebase false
       - name: Bump version
         uses: remorses/bump-version@js
         with:
