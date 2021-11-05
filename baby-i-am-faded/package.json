@@ -54,7 +54,9 @@
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3"
     },
-    "peerDependencies": {},
+    "peerDependencies": {
+        "react": "*"
+    },
     "dependencies": {
         "react-intersection-observer": "^8.32.2"
     }
