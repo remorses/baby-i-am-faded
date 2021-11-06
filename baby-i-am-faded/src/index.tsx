@@ -134,7 +134,7 @@ export const Faded: FC<FadedProps> = forwardRef(
                                     ? ` biaf${
                                           cascade ? 'Cascade' : 'NonCascade'
                                       }`
-                                    : 'biafHidden'
+                                    : ' biafHidden'
                             }
                             ref={ref}
                             {...rest}
