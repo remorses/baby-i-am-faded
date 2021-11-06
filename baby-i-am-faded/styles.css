@@ -7,7 +7,7 @@
     animation-delay: var(--delay, 0ms);
 }
 
-.biafCascade > :not(style) {
+.biafCascade > :not(style):nth-child(-n + 30) {
     animation-timing-function: var(--easing, ease-in-out);
     animation-duration: var(--duration, 400ms);
     animation-direction: normal;
@@ -115,4 +115,34 @@
 }
 .biafCascade :not(style):nth-child(19) {
     --delay: calc(var(--initial-delay, 0ms) + 19 * var(--increment));
+}
+.biafCascade :not(style):nth-child(20) {
+    --delay: calc(var(--initial-delay, 0ms) + 20 * var(--increment));
+}
+.biafCascade :not(style):nth-child(21) {
+    --delay: calc(var(--initial-delay, 0ms) + 21 * var(--increment));
+}
+.biafCascade :not(style):nth-child(22) {
+    --delay: calc(var(--initial-delay, 0ms) + 22 * var(--increment));
+}
+.biafCascade :not(style):nth-child(23) {
+    --delay: calc(var(--initial-delay, 0ms) + 23 * var(--increment));
+}
+.biafCascade :not(style):nth-child(24) {
+    --delay: calc(var(--initial-delay, 0ms) + 24 * var(--increment));
+}
+.biafCascade :not(style):nth-child(25) {
+    --delay: calc(var(--initial-delay, 0ms) + 25 * var(--increment));
+}
+.biafCascade :not(style):nth-child(26) {
+    --delay: calc(var(--initial-delay, 0ms) + 26 * var(--increment));
+}
+.biafCascade :not(style):nth-child(27) {
+    --delay: calc(var(--initial-delay, 0ms) + 27 * var(--increment));
+}
+.biafCascade :not(style):nth-child(28) {
+    --delay: calc(var(--initial-delay, 0ms) + 28 * var(--increment));
+}
+.biafCascade :not(style):nth-child(29) {
+    --delay: calc(var(--initial-delay, 0ms) + 29 * var(--increment));
 }

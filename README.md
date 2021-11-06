@@ -27,20 +27,6 @@ You can find a demo website [here](https://baby-i-am-faded.xmorse.now.sh).
 
 ## Usage
 
-Supposing you have this animation in your css
-
-```css
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translate3d(0px, -2em, 0px);
-    }
-    to {
-        transform: none;
-    }
-}
-```
-
 You can use the faded component like this
 
 ```tsx
@@ -48,36 +34,18 @@ import { Faded } from 'baby-i-am-faded'
 import 'baby-i-am-faded/styles.css'
 
 export const App = () => (
-    <Faded animationName='fadeIn' cascade triggerOnce>
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-        <Placeholder />
-    </Faded>
+    <>
+        <Faded cascade>
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+        </Faded>
+        <Faded whenInView triggerOnce>
+            <Placeholder />
+        </Faded>
+    </>
 )
 ```
-
-# TODO
-
--   Add animation styles after load event, to prevent fps lag on mobile devices (like aos does)
-
-```ts
-window.addEventListener('load', function () {
-    addStyles()
-})
-
-if (['complete', 'interactive'].indexOf(document.readyState) > -1) {
-    // Initialize if default startEvent was already fired
-    addStyles()
-}
-```
-
-
-
-
-
-
-
-
