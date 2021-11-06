@@ -55,3 +55,5 @@ export const App = () => (
 `cascade` works only on the first 30 elements
 
 `cascade` animates only children with depth 1, not children of children
+
+Animations are disabled by default on mobile browser (width less than 500px) and on devices that prefer reduced motion
