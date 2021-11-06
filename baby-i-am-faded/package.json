@@ -1,7 +1,7 @@
 {
     "name": "baby-i-am-faded",
     "_": "[bump if baby-i-am-faded]",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "description": "Reveal animation for react",
     "main": "dist/index.js",
     "module": "esm/index.js",
