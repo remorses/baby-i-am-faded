@@ -49,3 +49,9 @@ export const App = () => (
     </>
 )
 ```
+
+## Limitations
+
+`cascade` works only on the first 30 elements
+
+`cascade` animates only children with depth 1, not children of children
