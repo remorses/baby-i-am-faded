@@ -87,9 +87,9 @@ export const Faded: FC<FadedProps> = forwardRef(
             as: As = 'div',
             cascade = false,
             duration = 400,
-            threshold = 0.15,
-            className,
-            cascadeIncrement = 200,
+            threshold = 0.2,
+            className = '',
+            cascadeIncrement = 140,
             triggerOnce = false,
             animationName,
             timingFunction = 'ease-out',
@@ -117,6 +117,9 @@ export const Faded: FC<FadedProps> = forwardRef(
                     variablesStyle['--initial-delay'] = `${delay}ms`
                 }
             }
+            if (whenInView && !delay) {
+                variablesStyle['--initial-delay'] = `100ms`
+            }
             if (animationName) {
                 variablesStyle['--animationName'] = animationName
             }
@@ -126,22 +129,25 @@ export const Faded: FC<FadedProps> = forwardRef(
         if (whenInView) {
             return (
                 <InView threshold={threshold} triggerOnce={triggerOnce}>
-                    {({ inView, ref, entry }) => (
-                        <As
-                            style={variablesStyle}
-                            className={
-                                className + inView
-                                    ? ` biaf${
-                                          cascade ? 'Cascade' : 'NonCascade'
-                                      }`
-                                    : ' biafHidden'
-                            }
-                            ref={ref}
-                            {...rest}
-                        >
-                            {children}
-                        </As>
-                    )}
+                    {({ inView, ref, entry }) => {
+                        return (
+                            <As
+                                style={variablesStyle}
+                                className={
+                                    className +
+                                    (inView
+                                        ? ` biaf${
+                                              cascade ? 'Cascade' : 'NonCascade'
+                                          }`
+                                        : ' biafHidden')
+                                }
+                                ref={ref}
+                                {...rest}
+                            >
+                                {children}
+                            </As>
+                        )
+                    }}
                 </InView>
             )
         }
@@ -160,5 +166,3 @@ export const Faded: FC<FadedProps> = forwardRef(
         )
     },
 )
-
-

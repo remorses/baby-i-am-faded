@@ -1,0 +1,22 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0px, -2em, 0px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
