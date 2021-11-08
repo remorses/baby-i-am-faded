@@ -178,7 +178,7 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
         if (typeof children !== 'string') {
             return children
         }
-        const words = children.split(' ')
+        const words = children.split(' ').filter(Boolean)
 
         const nodes = words.map((word, index) => {
             const variablesStyle: any = {}
