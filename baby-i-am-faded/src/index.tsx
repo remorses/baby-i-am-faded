@@ -4,9 +4,10 @@ import React, {
     FC,
     forwardRef,
     ReactNode,
+    useCallback,
     useMemo,
 } from 'react'
-import { InView } from 'react-intersection-observer'
+import { InView, useInView } from 'react-intersection-observer'
 
 export type FadedProps = {
     /*
@@ -126,39 +127,27 @@ export const Faded: FC<FadedProps> = forwardRef(
 
             return variablesStyle
         }, [style, animationName, delay, duration, timingFunction, cascade])
-        if (whenInView) {
-            return (
-                <InView threshold={threshold} triggerOnce={triggerOnce}>
-                    {({ inView, ref, entry }) => {
-                        return (
-                            <As
-                                style={variablesStyle}
-                                className={
-                                    className +
-                                    (inView
-                                        ? ` biaf${
-                                              cascade ? 'Cascade' : 'NonCascade'
-                                          }`
-                                        : ' biafHidden')
-                                }
-                                ref={ref}
-                                {...rest}
-                            >
-                                {children}
-                            </As>
-                        )
-                    }}
-                </InView>
-            )
+        let { ref: ref2, inView = true } = useInView({
+            skip: !whenInView,
+            triggerOnce,
+            threshold,
+        })
+        if (!whenInView) {
+            inView = true
         }
+
+        const ref = useCombineRefs(ref1, ref2)
 
         return (
             <As
-                className={
-                    className + ` biaf${cascade ? 'Cascade' : 'NonCascade'}`
-                }
                 style={variablesStyle}
-                ref={ref1}
+                className={
+                    className +
+                    (inView
+                        ? ` biaf biaf${cascade ? 'Cascade' : 'NonCascade'}`
+                        : ' biaf biafHidden')
+                }
+                ref={ref}
                 {...rest}
             >
                 {children}
@@ -166,3 +155,112 @@ export const Faded: FC<FadedProps> = forwardRef(
         )
     },
 )
+
+export const FadedText = forwardRef<any, FadedProps>(function FadedText(
+    {
+        as: As = 'div',
+        duration = 400,
+        threshold = 0.2,
+        className = '',
+        cascadeIncrement = 100,
+        triggerOnce = false,
+        animationName = 'babyFadeTextUp',
+        timingFunction = 'ease-out',
+        whenInView = false,
+        delay = 0,
+        style,
+        children,
+        ...rest
+    }: FadedProps,
+    ref1,
+) {
+    function makeAnimated({ inView }) {
+        if (typeof children !== 'string') {
+            return children
+        }
+        const words = children.split(' ')
+
+        const nodes = words.map((word, index) => {
+            const variablesStyle: any = {}
+
+            variablesStyle['--delay'] = `${delay + cascadeIncrement * index}ms`
+
+            return (
+                <span
+                    className={
+                        className +
+                        (inView ? ` biaf biafTextWord` : ' biaf biafHidden')
+                    }
+                    style={variablesStyle}
+                    key={index}
+                >
+                    {index !== words.length - 1 ? word + ' ' : word}
+                </span>
+            )
+        })
+        return nodes
+    }
+    const parentStyle = useMemo(() => {
+        const variablesStyle = {
+            ...style,
+        }
+        variablesStyle['--duration'] = `${duration}ms`
+        variablesStyle['--easing'] =
+            timingFunctions[timingFunction] || timingFunction
+        if (animationName) {
+            variablesStyle['--animationName'] = animationName
+        }
+        return variablesStyle
+    }, [style])
+    let { ref: ref2, inView = true } = useInView({
+        skip: !whenInView,
+        triggerOnce,
+        threshold,
+    })
+
+    if (!whenInView) {
+        inView = true
+    }
+
+    const ref = useCombineRefs(ref1, ref2)
+
+    const newChildren = useMemo(() => {
+        return makeAnimated({ inView })
+    }, [
+        children,
+        inView,
+        animationName,
+        delay,
+        duration,
+        timingFunction,
+        cascadeIncrement,
+    ])
+    if (whenInView) {
+        return (
+            <As style={parentStyle} ref={ref} {...rest}>
+                {newChildren}
+            </As>
+        )
+    }
+    return (
+        <As style={parentStyle} ref={ref} {...rest}>
+            {newChildren}
+        </As>
+    )
+})
+
+function useCombineRefs(...refs) {
+    const setRef = useCallback(
+        (node) => {
+            for (let ref1 of refs) {
+                if (typeof ref1 === 'function') {
+                    ref1(node)
+                } else if (ref1) {
+                    ref1.current = node
+                }
+            }
+        },
+        [...refs],
+    )
+    return setRef
+}

@@ -12,7 +12,7 @@ function main() {
     const styles = fs.readFileSync(stylesPath).toString()
     let generatedCss = commentForReplacement
     for (let index = 0; index < N; index++) {
-        generatedCss += `.biafCascade :not(style):nth-child(${index + 1}) {\n`
+        generatedCss += `.biafCascade > :nth-child(${index + 1}) {\n`
         generatedCss += `    --delay: calc(var(--initial-delay, 0ms) + ${index} * var(--increment));\n`
         generatedCss += `}\n`
     }

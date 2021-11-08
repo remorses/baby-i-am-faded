@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 
-import { Faded } from '../src'
+import { Faded, FadedText } from '../src'
 import { Global } from '@emotion/react'
 
 import '../styles.css'
@@ -29,6 +29,22 @@ export const Cascade = () => (
             ))}
     </Faded>
 )
+
+export const CascadeWithFadedChild = () => (
+    <Faded cascade>
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+        <Faded animationName='zoomIn'>
+            <Placeholder />
+        </Faded>
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+    </Faded>
+)
+
 export const CascadeZoomIn = () => (
     <Faded animationName='zoomIn' cascade>
         {Array(50)
@@ -78,4 +94,28 @@ export const WhenInViewOnce = () => (
         <Placeholder />
         <Placeholder />
     </Faded>
+)
+
+const textStyle: CSSProperties = {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    fontFamily: 'monospace',
+}
+
+export const FadeText = () => (
+    <FadedText style={textStyle}>
+        Some very cool text also very long and very wow
+    </FadedText>
+)
+export const FadeTextZoomIn = () => (
+    <FadedText animationName='zoomIn' style={textStyle}>
+        Some very cool text also very long and very wow
+    </FadedText>
+)
+export const FadeTextInView = () => (
+    <div className='' style={{ marginTop }}>
+        <FadedText whenInView triggerOnce style={{ ...textStyle }}>
+            Some very cool text also very long and very wow
+        </FadedText>
+    </div>
 )
