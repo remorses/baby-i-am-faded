@@ -183,13 +183,14 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
         const nodes = words.map((word, index) => {
             const variablesStyle: any = {}
 
-            variablesStyle['--delay'] = `${delay + cascadeIncrement * index}ms`
+            variablesStyle['--text-delay'] = `${
+                delay + cascadeIncrement * index
+            }ms`
 
             return (
                 <span
                     className={
-                        className +
-                        (inView ? ` biaf biafTextWord` : ' biaf biafHidden')
+                        inView ? ` biaf biafTextWord` : ' biaf biafHidden'
                     }
                     style={variablesStyle}
                     key={index}
@@ -235,15 +236,14 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
         timingFunction,
         cascadeIncrement,
     ])
-    if (whenInView) {
-        return (
-            <As style={parentStyle} ref={ref} {...rest}>
-                {newChildren}
-            </As>
-        )
-    }
+
     return (
-        <As style={parentStyle} ref={ref} {...rest}>
+        <As
+            className={className + ' biafTextWrapper'}
+            style={parentStyle}
+            ref={ref}
+            {...rest}
+        >
             {newChildren}
         </As>
     )

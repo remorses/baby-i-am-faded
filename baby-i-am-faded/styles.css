@@ -7,7 +7,7 @@
     animation-delay: var(--delay, 0ms);
 }
 
-.biafCascade > :not(style):nth-child(-n + 30) {
+.biafCascade > :not(style):not(.biafTextWrapper):nth-child(-n + 30) {
     animation-timing-function: var(--easing, ease-in-out);
     animation-duration: var(--duration, 400ms);
     animation-direction: normal;
@@ -24,8 +24,12 @@
     animation-direction: normal;
     animation-fill-mode: backwards;
     animation-name: var(--animationName, babyFadeTextUp);
-    animation-delay: var(--delay, 0ms);
+    animation-delay: calc(var(--text-delay, 0ms) + var(--delay, 0ms));
 }
+
+/* .biafTextWrapper {
+
+} */
 
 .biafHidden {
     opacity: 0;

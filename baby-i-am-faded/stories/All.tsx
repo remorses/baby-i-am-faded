@@ -45,6 +45,19 @@ export const CascadeWithFadedChild = () => (
     </Faded>
 )
 
+export const CascadeWithFadedTextChild = () => (
+    <Faded cascade>
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+        <FadedText>Some very cute text</FadedText>
+        <Placeholder />
+        <Placeholder />
+        <Placeholder />
+    </Faded>
+)
+
 export const CascadeZoomIn = () => (
     <Faded animationName='zoomIn' cascade>
         {Array(50)
