@@ -12,6 +12,7 @@ function main() {
     const styles = fs.readFileSync(stylesPath).toString()
     let generatedCss = commentForReplacement
     for (let index = 0; index < N; index++) {
+        // TODO use spring values to make reveal more natural
         generatedCss += `.biafCascade > :nth-child(${index + 1}) {\n`
         generatedCss += `    --delay: calc(var(--initial-delay, 0ms) + ${index} * var(--increment));\n`
         generatedCss += `}\n`
