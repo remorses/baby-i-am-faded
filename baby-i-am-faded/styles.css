@@ -59,6 +59,9 @@
     .biafNonCascade {
         animation-name: none;
     }
+    .biafTextWord {
+        animation-name: none;
+    }
     .biafCascade > :not(style):nth-child(-n + 30) {
         animation-name: none;
     }
@@ -69,6 +72,9 @@
 
 @media (prefers-reduced-motion) {
     .biafNonCascade {
+        animation-name: none;
+    }
+    .biafTextWord {
         animation-name: none;
     }
     .biafCascade > :not(style):nth-child(-n + 30) {
