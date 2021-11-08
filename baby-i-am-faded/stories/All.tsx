@@ -6,6 +6,12 @@ import { Global } from '@emotion/react'
 import '../styles.css'
 import './styles.css'
 
+const textStyle: CSSProperties = {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    fontFamily: 'monospace',
+}
+
 export default {
     title: 'All',
     component: Faded,
@@ -51,7 +57,7 @@ export const CascadeWithFadedTextChild = () => (
         <Placeholder />
         <Placeholder />
         <Placeholder />
-        <FadedText>Some very cute text</FadedText>
+        <FadedText style={textStyle}>Some very cute text</FadedText>
         <Placeholder />
         <Placeholder />
         <Placeholder />
@@ -108,12 +114,6 @@ export const WhenInViewOnce = () => (
         <Placeholder />
     </Faded>
 )
-
-const textStyle: CSSProperties = {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    fontFamily: 'monospace',
-}
 
 export const FadeText = () => (
     <FadedText style={textStyle}>
