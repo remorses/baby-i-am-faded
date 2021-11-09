@@ -13,7 +13,7 @@ function main() {
     let generatedCss = commentForReplacement
     for (let index = 0; index < N; index++) {
         generatedCss += `.biafCascade > :nth-child(${index + 1}) {\n`
-        generatedCss += `    --delay: calc(var(--initial-delay, 0ms) + ${index} * var(--increment));\n`
+        generatedCss += `    --delay: calc(var(--initial-delay, 0ms) + ${index} * var(--increment, 120ms));\n`
         generatedCss += `}\n`
     }
     generatedCss += '\n/* This has been generated too */\n'

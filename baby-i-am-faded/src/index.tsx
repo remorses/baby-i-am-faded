@@ -87,13 +87,13 @@ export const Faded: FC<FadedProps> = forwardRef(
         {
             as: As = 'div',
             cascade = false,
-            duration = 400,
+            duration,
             threshold = 0.2,
             className = '',
-            cascadeIncrement = 140,
+            cascadeIncrement,
             triggerOnce = false,
             animationName,
-            timingFunction = 'ease-out',
+            timingFunction,
             whenInView = false,
             delay = 0,
             style,
@@ -105,11 +105,17 @@ export const Faded: FC<FadedProps> = forwardRef(
         const variablesStyle = useMemo(() => {
             const variablesStyle: any = { ...style }
 
-            variablesStyle['--increment'] = `${cascadeIncrement}ms`
-            variablesStyle['--duration'] = `${duration}ms`
+            if (cascadeIncrement) {
+                variablesStyle['--increment'] = `${cascadeIncrement}ms`
+            }
+            if (duration) {
+                variablesStyle['--duration'] = `${duration}ms`
+            }
 
-            variablesStyle['--easing'] =
-                timingFunctions[timingFunction] || timingFunction
+            if (timingFunction) {
+                variablesStyle['--easing'] =
+                    timingFunctions[timingFunction] || timingFunction
+            }
 
             if (delay) {
                 if (!cascade) {
@@ -159,13 +165,13 @@ export const Faded: FC<FadedProps> = forwardRef(
 export const FadedText = forwardRef<any, FadedProps>(function FadedText(
     {
         as: As = 'div',
-        duration = 400,
+        duration,
         threshold = 0.2,
         className = '',
         cascadeIncrement = 100,
         triggerOnce = false,
         animationName = 'babyFadeTextUp',
-        timingFunction = 'ease-out',
+        timingFunction,
         whenInView = false,
         delay = 0,
         style,
@@ -205,9 +211,14 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
         const variablesStyle = {
             ...style,
         }
-        variablesStyle['--duration'] = `${duration}ms`
-        variablesStyle['--easing'] =
-            timingFunctions[timingFunction] || timingFunction
+
+        if (duration) {
+            variablesStyle['--duration'] = `${duration}ms`
+        }
+        if (timingFunction) {
+            variablesStyle['--easing'] =
+                timingFunctions[timingFunction] || timingFunction
+        }
         if (animationName) {
             variablesStyle['--animationName'] = animationName
         }
