@@ -183,6 +183,7 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
     {
         as: As = 'div',
         duration,
+        waitMount,
         threshold = 0.2,
         className = '',
         cascadeIncrement = 100,
@@ -241,15 +242,24 @@ export const FadedText = forwardRef<any, FadedProps>(function FadedText(
         }
         return variablesStyle
     }, [style])
-    let { ref: ref2, inView = true } = useInView({
+    const [inView, setInView] = useState(() =>
+        !whenInView && !waitMount ? true : false,
+    )
+    let { ref: ref2, inView: _inView = true } = useInView({
         skip: !whenInView,
         triggerOnce,
         threshold,
     })
-
-    if (!whenInView) {
-        inView = true
-    }
+    useEffect(() => {
+        if (whenInView) {
+            setInView(_inView)
+        }
+    }, [_inView])
+    useEffect(() => {
+        if (waitMount) {
+            setInView(true)
+        }
+    }, [])
 
     const ref = useCombineRefs(ref1, ref2)
 
