@@ -5,7 +5,9 @@ import React, {
     forwardRef,
     ReactNode,
     useCallback,
+    useEffect,
     useMemo,
+    useState,
 } from 'react'
 import { InView, useInView } from 'react-intersection-observer'
 
@@ -42,6 +44,10 @@ export type FadedProps = {
      * The initial delay
      */
     delay?: number
+    /**
+     * Wait react mount to show animation
+     */
+    waitMount?: boolean
     /**
      * The timing function
      */
@@ -87,6 +93,7 @@ export const Faded: FC<FadedProps> = forwardRef(
         {
             as: As = 'div',
             cascade = false,
+            waitMount = false,
             duration,
             threshold = 0.2,
             className = '',
@@ -133,14 +140,24 @@ export const Faded: FC<FadedProps> = forwardRef(
 
             return variablesStyle
         }, [style, animationName, delay, duration, timingFunction, cascade])
-        let { ref: ref2, inView = true } = useInView({
+        const [inView, setInView] = useState(() =>
+            !whenInView && !waitMount ? true : false,
+        )
+        let { ref: ref2, inView: _inView = true } = useInView({
             skip: !whenInView,
             triggerOnce,
             threshold,
         })
-        if (!whenInView) {
-            inView = true
-        }
+        useEffect(() => {
+            if (whenInView) {
+                setInView(_inView)
+            }
+        }, [_inView])
+        useEffect(() => {
+            if (waitMount) {
+                setInView(true)
+            }
+        }, [])
 
         const ref = useCombineRefs(ref1, ref2)
 

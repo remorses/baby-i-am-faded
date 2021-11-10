@@ -36,6 +36,16 @@ export const Cascade = () => (
     </Faded>
 )
 
+export const CascadeWaitMount = () => (
+    <Faded cascade waitMount>
+        {Array(50)
+            .fill(0)
+            .map((_, i) => (
+                <Placeholder key={i} />
+            ))}
+    </Faded>
+)
+
 export const CascadeWithFadedChild = () => (
     <Faded cascade>
         <Placeholder />
