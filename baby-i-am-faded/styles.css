@@ -38,7 +38,7 @@
 @keyframes babyFadeIn {
     from {
         opacity: 0;
-        transform: translate3d(0px, -2em, 0px);
+        transform: translate3d(0px, 2em, 0px);
     }
     to {
         transform: none;
