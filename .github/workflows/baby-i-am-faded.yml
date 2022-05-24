@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-    paths:
-      - baby-i-am-faded/**
+    # paths:
+    #   - baby-i-am-faded/**
 
 jobs:
   build:
