@@ -10,13 +10,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 7
+          run_install: true
       - run: pnpm i
       # - run: yarn test
       - run: cd baby-i-am-faded && yarn compile
