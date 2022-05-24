@@ -1,5 +1,6 @@
 import React, {
     ComponentPropsWithoutRef,
+    ComponentType,
     ElementType,
     FC,
     forwardRef,
@@ -15,7 +16,7 @@ export type FadedProps = {
     /*
     The tag element to use for the component.
     */
-    as?: ElementType
+    as?: ElementType<any>
     /*
     Trigger animation only when in view
     */
@@ -91,7 +92,7 @@ const timingFunctions = {
 export const Faded: FC<FadedProps> = forwardRef(
     (
         {
-            as: As = 'div',
+            as: As = 'div' as any,
             cascade = false,
             waitMount = false,
             duration,

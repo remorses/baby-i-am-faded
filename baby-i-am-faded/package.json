@@ -37,20 +37,20 @@
         "@storybook/addon-links": "^5.3.17",
         "@storybook/addons": "^5.3.17",
         "@storybook/preset-typescript": "^3.0.0",
-        "@storybook/react": "^5.3.17",
-        "@types/node": "^12.0.7",
-        "@types/react": "^16.9.25",
-        "babel-loader": "^8.1.0",
-        "dotenv": "^8.2.0",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "sucrase": "^3.12.1",
-        "ts-loader": "^6.2.2"
+        "@storybook/react": "^5",
+        "@types/node": "^17.0.35",
+        "@types/react": "^18.0.9",
+        "babel-loader": "^8.2.5",
+        "dotenv": "^16.0.1",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "sucrase": "^3.21.0",
+        "ts-loader": "^9.3.0"
     },
     "peerDependencies": {
         "react": "*"
     },
     "dependencies": {
-        "react-intersection-observer": "^8.32.2"
+        "react-intersection-observer": "^9.1.0"
     }
 }

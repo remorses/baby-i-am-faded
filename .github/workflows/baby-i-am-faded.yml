@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: cd baby-i-am-faded && yarn
+      - run: pnpm i
       # - run: yarn test
       - run: cd baby-i-am-faded && yarn compile
       - run: git config pull.rebase false

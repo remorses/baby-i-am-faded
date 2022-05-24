@@ -6,5 +6,7 @@
         "baby-i-am-faded"
     ],
     "scripts": {},
-    "devDependencies": {}
+    "dependencies": {
+        "typescript": "^4.6.4"
+    }
 }
