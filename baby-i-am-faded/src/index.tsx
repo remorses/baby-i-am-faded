@@ -49,6 +49,7 @@ export type FadedProps = {
      * Wait react mount to show animation
      */
     waitMount?: boolean
+    disabled?: boolean
     /**
      * The timing function
      */
@@ -94,6 +95,7 @@ export const Faded: FC<FadedProps> = forwardRef(
         {
             as: As = 'div' as any,
             cascade = false,
+            disabled = false,
             waitMount = false,
             duration,
             threshold = 0.2,
@@ -111,6 +113,9 @@ export const Faded: FC<FadedProps> = forwardRef(
         ref1: any,
     ) => {
         const variablesStyle = useMemo(() => {
+            if (disabled) {
+                return
+            }
             const variablesStyle: any = { ...style }
 
             if (cascadeIncrement) {
@@ -140,7 +145,7 @@ export const Faded: FC<FadedProps> = forwardRef(
             }
 
             return variablesStyle
-        }, [style, animationName, delay, duration, timingFunction, cascade])
+        }, [style, animationName, delay, duration, timingFunction, cascade, disabled])
         const [inView, setInView] = useState(() =>
             !whenInView && !waitMount ? true : false,
         )
@@ -166,10 +171,14 @@ export const Faded: FC<FadedProps> = forwardRef(
             <As
                 style={variablesStyle}
                 className={
-                    className +
-                    (inView
-                        ? ` biaf biaf${cascade ? 'Cascade' : 'NonCascade'}`
-                        : ' biaf biafHidden')
+                    disabled
+                        ? className
+                        : className +
+                          (inView
+                              ? ` biaf biaf${
+                                    cascade ? 'Cascade' : 'NonCascade'
+                                }`
+                              : ' biaf biafHidden')
                 }
                 ref={ref}
                 {...rest}
